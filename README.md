@@ -1,4 +1,4 @@
 LaTeX
 =====
 
-learning for latex
+learning for latex, latex source code for learning
