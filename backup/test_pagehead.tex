@@ -1,0 +1,17 @@
+\documentclass[12pt,a4paper]{article}
+\usepackage{lipsum}     
+\usepackage{geometry}   
+\usepackage{titlesec}  
+\geometry{left=3cm,right=2.5cm,top=2.5cm,bottom=2.5cm}
+\begin{document}
+
+\newpagestyle{main}{            
+    \sethead{1}{2}{3}
+    \setfoot{1}{2}{3}
+    \headrule
+    \footrule
+}
+\pagestyle{main}
+\lipsum[1]
+\clearpage
+\end{document}

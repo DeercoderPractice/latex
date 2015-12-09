@@ -1,0 +1,328 @@
+\documentclass[11pt,a4paper]{article}
+\usepackage{epsf}
+\usepackage{bm}
+\usepackage{latexsym}
+\RequirePackage{amsopn}
+\RequirePackage{amsfonts}
+\RequirePackage{amsthm}
+
+\title{How to learn LaTeX in 7 minutes?}
+\author{Ernst Wit\thanks{ernst@stats.gla.ac.uk} and Simon N. Wood\thanks{simon@stats.gla.ac.uk}\\ Department of Statistics, University of Glasgow\\ Glasgow G12 8QW, U.K.}
+
+% Here I define a new command "\real" which can now be used in the text
+\newcommand{\real}{\mathbb{R}}
+% Several other commands that are useful for my purposes
+\newtheorem{theorem}{Theorem}
+\newtheorem{lemma}{Lemma}
+\newcommand{\roo}{\real^{\scriptstyle \Omega\times\Omega}}  %fn space R^Om*Om
+\newcommand{\sym}{\mbox{\em sym}}                           %symmetric reps
+\newcommand{\alt}{\mbox{\em alt}}                           %alternating reps
+\newcommand{\dirsum}{\oplus}                                %direct sum
+\newcommand{\comp}{\circ}                                   %composition sign
+\newcommand{\sOmega}{{\scriptscriptstyle \Omega}}
+\newcommand{\complex}{\mathbb{C}}                           %complex numbers
+\newcommand{\CX}{\mathcal{X}}                               %a vector space or category
+\newcommand{\ro}{\real^{\scriptstyle \Omega}}               %function space R^\Omega
+\newcommand{\sOmegap}{{\scriptscriptstyle \Omega'}}
+\newcommand{\CM}{\mathcal{M}}                               %measure category
+
+
+\begin{document}
+
+\maketitle
+
+
+\begin{abstract}
+This paper will ``teach'' you how to use \LaTeX in some minutes. In
+fact, all you have to know is how to load this file, called {\tt
+learn-latex.tex} into WinEdt and know that you should press the
+\LaTeX button to create the nice looking file, the Bib button to
+include the bibliographic references in the nice looking file
+(that you have to repeat this process two times before the file
+learns the appropriate names) and the DVI button to show you the
+nice looking file. The DVI$\rightarrow$PDF button generates a PDF
+file, which you can share with your collaborators or with
+journals.
+
+Everything else you have to learn about \LaTeX you should simply
+steal from this document. 
+
+Make sure that you also save the two additional files in your
+directory: the first file is {\tt extendibility.bib}, the
+bibliography file, and the second file is {\tt
+alleles-nonselves-rss.ps}, the postscript file that contains a
+figure.
+\end{abstract}
+
+\section{Introduction \label{intro}}
+
+\LaTeX is a rather {\tiny f}{\small l}e{\large x}{\Large i}{\huge b}{\Large l}{\large e} mathematical typesetting package. Various fonts and {\large sizes} of font are available. For example {\tt typewriter}, {\it italic}, {\em emphasised}, {\sf san serif}, {\bf bold} as well as the default {\rm roman}. Combinations of some are possible {\sf \em emphasised san serif}, for example. \LaTeX is very good at dealing with equations, only uses plain text, so it's easy to email and doesn't produce mysterious reformatings of your document every time you use a different version.
+
+\subsection{document classes}
+
+The way your document will look and be structured depends on the \\ {\tt documentclass}  command at the top of the file. Useful classes are: {\tt letter}, {\tt article}, for reports and journal articles and {\tt book} for theses and books.
+
+\subsection{sections}
+
+Articles are usually structured into sections, and books into chapters and chapter sections. Sections can be cross referenced, if you \verb+\label+ them. For example the Introduction is section \ref{intro} in this document. Sub-sections are possible
+
+\subsubsection{sub-sub-sections are also possible}
+
+Sometimes you also want a section without a number \ldots
+
+\subsection*{Like this}
+
+which used the \verb+subsection*+ command.
+
+\subsection{Spaces, gaps, pagebreaks, etc.}
+
+Sometimes you want to over-ride the default formatting in various ways. Here are a few common examples.
+
+If you leave a blank line between two lines of text \LaTeX assumes that you want a new paragraph and indents accordingly. 
+
+\noindent Sometimes you don't want this indentation and the \verb+\noindent+ command is useful.
+
+Perhaps you want more space between lines.
+
+\bigskip
+
+\noindent \verb+\bigskip+ will do this for you in a manner that takes account of the font size in use. But sometimes you want more control - a 0.6cm vertical space, for example \ldots
+
+\vspace{.6cm}
+
+\noindent or even a \hspace{2cm}  horizontal space.
+
+Sometimes you may want to \\ break a line in a different place to the default in which case use \verb+\\+ to insert a line break.
+
+Sometimes you just want the wretched page to end right now
+
+\pagebreak
+
+\verb+\pagebreak+ does this, although sometimes this means that \LaTeX stretches out everything above the page break out in an ugly way, in which case \verb+\vfil\eject+ is better.
+
+\section{Equations}
+
+The real beauty of \LaTeX is equations. For inline equations like, $\mu(x_1,x_2) = 2 x_1 + 2 x_2$, simply insert the instructions defining the equation between single \verb+$+ signs. If you want a display equation without a number put the instructions between \verb+$$+'s like this:
+
+$$ {\bf X}_\theta = \left[ \begin{array}{cccc}
+\cos \theta + \sin\theta & 0 &0 & \ldots \\
+\cos\theta & \sin\theta & 0 &\ldots \\
+\cos\theta & 0 & \sin\theta& \ldots \\
+\vdots &\vdots &\vdots& \ddots \\
+0&   \cos \theta + \sin\theta & 0 & \ldots \\
+0 &\cos\theta & \sin\theta & \ldots \\
+\vdots &\vdots &\vdots& \ddots \\
+\end{array} \right]
+$$
+If you want an equation to have a number then you need to use \verb+begin{equation}+ and \verb+\end{equation}+ for example
+\begin{equation}
+{\bm \theta} = \int {\bf Mx} ~ d{\bf x} \label{stuff}
+\end{equation}
+Numbered equations like equation (\ref{stuff}) can be referenced using \verb+\ref+. Note that bold Greek letters, like $\bm \alpha$ are only available if you have \verb+\usepackage{bm}+ near the top of your document.
+
+Multi-line equations (without numbering) are produced like this:
+\begin{eqnarray*}
+  \left(a f_{\theta_1} + b f_{\theta_2}\right) (x)
+        &:=& a f_{\theta_1}(x) + b f_{\theta_2}(x) \\
+        &=& a x^t \theta_1 + b x^t \theta_2 \\
+        &=& x^t (a \theta_1 + b \theta_2).
+\end{eqnarray*}
+or with numbering like this:
+\begin{eqnarray}
+\label{eq:sur_par_space}
+\Theta(n,T) &=& B(n,T) \times \Sigma(n,T) \\
+&=& \{\mu~|~\mu=X\beta,~\beta\in\mathbb{R}^{nT}\} \times
+\{\Sigma_\epsilon ~|~ \sigma_{ii} \geq 0, \sigma_{ij}=\sigma_{ji}
+\in \mathbb{R}, i \not = j \}\nonumber
+\end{eqnarray}
+
+Often you may want something like this:
+$$
+f(x_i)= \left \{ \begin{array}{ll} (\beta + 1) x_i^\beta & 0<x_i<1 \\ 0 & {\rm 
+otherwise} \end{array} \right.
+$$
+the large $\{$ is achieved using the bracketing commands \verb+\left+ and \verb+\right+ along with the null bracket symbol `\verb+.+'.
+
+\section{Documentation}
+
+At this point you may be feeling the need for a less random source of information. If you are going to use \LaTeX to write your thesis then get hold of:
+
+\begin{center}
+Kopka, H. and P.W. Daly {\em A guide to \LaTeX} Addison Wesley.
+\end{center}
+
+\noindent It's comprehensive and excellent.
+
+Within {\sf WinEdt } try {\tt Help>LaTeX2e} from the menues.
+
+\section{Figures}
+
+You will need to include figures. It is best to include postscript figures, i.e. {\tt .ps} or {\tt .eps} files. There are many ways to do this, but using \verb+\package{epsf}+ is quite straightforward. For example 
+
+\centerline{\epsfysize=7.0cm \epsffile{alleles-nonselves-rss.ps}}
+
+\noindent \ldots is a figure included just where I wanted it, but many times we also want figure to be nicely placed with captions etc. as in figure \ref{fig:rssde}
+
+\begin{figure}[htbp]
+\begin{center}
+\epsfysize=7.0cm \epsffile{alleles-nonselves-rss.ps}
+\caption{Residual sums of squares of the differential effect model $DE_\theta$
+with an approximate 95\% confidence interval for $\theta$.}
+\label{fig:rssde}
+\end{center}
+\end{figure}
+
+Notice how easy it is to control the size of postscript figures \ldots
+\epsfysize=0.5cm \epsffile{alleles-nonselves-rss.ps}.
+
+\section{Tables}
+
+Here are some examples of tables.
+
+
+
+\begin{center}
+\begin{tabular}{rclc}
+\multicolumn{3}{c}{subrepresentation} & dim \\
+\hline
+\multicolumn{3}{c}{\em Diagonal}&\\
+$1_D$ &=& ${\scriptstyle \{f~|~f_{ij}=0,~ f_{ii}=c\}}$& ${\scriptstyle 1}$\\
+$1^\perp_D$ &=& ${\scriptstyle \{f~|~f_{ij}=0,~ \sum_{i=1}^n f_{ii}=0\}}$& ${\scriptstyle n-1}$\\
+\hline
+\multicolumn{3}{c}{\em Off-diagonal}&\\
+$1_O$ &=& ${\scriptstyle \{f~|~f_{ii}=0,~ f_{ij}=c\}}$ & ${\scriptstyle 1}$\\
+$\sym^+$ &=& ${\scriptstyle \{f~|~f_{ij}= \alpha_i+\alpha_j,~ \sum \alpha_i=0\}}$&
+${\scriptstyle n-1}$\\
+$\sym$ &=& ${\scriptstyle \{f~|~f_{ij}=f_{ji},~ \sum_i f_{ij}=\sum_j f_{ij}=0\}}$&
+${\scriptstyle \frac{n(n-3)}{2}}$\\
+$alt^+$  &=& ${\scriptstyle \{f~|~f_{ij}= \alpha_i-\alpha_j,~ \sum \alpha_i=0\}}$& ${\scriptstyle n-1
+}$\\
+$\alt$ &=& ${\scriptstyle \{f~|~f_{ij}=- f_{ji},~ \sum_i f_{ij}=\sum_j f_{ij}=0\}}$&
+${\scriptstyle \frac{(n-1)(n-2)}{2}}$
+\end{tabular}
+\end{center}
+
+
+
+\begin{center}
+{\small
+\begin{tabular}{lll}
+Name & Model formula & Conditions \\
+\hline
+\multicolumn{2}{l}{{\bf diagonal}}\\
+$1$ & ${\textstyle \mu_{ii} = \mu} $\\
+$\ro$ &${\textstyle \mu_{ii} = \mu + \alpha_i}$ \\
+\hline
+\multicolumn{2}{l}{{\bf off-diagonal}}\\
+{Symmetric}\\
+$1$ &${\textstyle \mu_{ij} =  \mu}$\\
+$\sym^+$ &${\textstyle \mu_{ij} =  \alpha_i+\alpha_j}$\\
+$\sym$& ${\textstyle \mu_{ij} =  \gamma_{ij}}$ &
+${\textstyle \gamma_{ij} = \gamma_{ji}}$\\
+{Alternating}\\
+$\alt^+$ & ${\textstyle \mu_{ij} =  \alpha_i-\alpha_j}$\\
+$\alt$ & ${\textstyle \mu_{ij} =  \gamma_{ij}}$ &
+${\textstyle \gamma_{ij} = -\gamma_{ji}}$\\
+{Differential Effects}\\
+$DE_\theta$ & ${\textstyle \mu_{ij} =  \alpha_i \cos\theta
++\alpha_j \sin\theta}$ & ${\textstyle \theta \in [0,\pi)}$\\
+$DE$ & ${\textstyle \mu_{ij} =  \alpha_i \cos\theta
++\alpha_j \sin\theta}$ & \\
+\hline
+\end{tabular}
+}
+\end{center}
+
+Nicely placed tables with captions, numbers and labels like table \ref{tab:symgrporbits}, can be produced with \verb+\begin{table}+ and \verb+\end{table}+.
+
+
+\begin{table}[tb]
+\caption{Orbits of $S_n$ in $\Omega^3$ (with $n>3$)
+and in $\Omega^4$ (with $n>4$)}
+\label{tab:symgrporbits}
+\begin{center}
+\begin{tabular}{lr||lr}
+\multicolumn{2}{c}{Orbits in $\Omega^3$}
+&
+\multicolumn{2}{c}{Orbits in $\Omega^4$} \\
+Orbit type & multiplicity & Orbit type& multiplicity\\
+\hline
+$\{(i,i,i)\}$ & 1 & $\{(i,i,i,i)\}$ & 1 \\
+$\{(i,i,j)\}$ & 3 & $\{(i,i,i,j)\}$ & 4 \\
+$\{(i,j,k)\}$ & 1 & $\{(i,i,j,j)\}$ & 3 \\
+&   & $\{(i,i,j,k)\}$& 6 \\
+&   & $\{(i,j,k,l)\}$& 1 \\
+\hline
+Total        &  5 & Total        &  15
+\end{tabular}
+\end{center}
+\end{table}
+
+
+\section{Lists}
+
+Devotees of the bullet point:
+\begin{itemize}
+\item Should use the \verb+\begin{itemize}+ command to start a bulleted list.
+\item Should use the \verb+\item+ command to add items to the list.
+\item Should use the \verb+\end{itemize}+ command to end a bulleted list.
+\end{itemize}
+
+\noindent Numbered lists can be useful
+\begin{enumerate}
+\item because I say so.
+\item because they break op the visual flatness of a page.
+\item because they can be nested which is useful for
+\begin{enumerate}
+\item examination questions.
+\item algorithms.
+\item er.
+\end{enumerate}
+\end{enumerate}
+
+\section{Including computer code/output}
+
+Computer code represents a special problem, because it often uses characters that have a special meaning in \LaTeX and is often carefully laid out in a way that the author does not want messed around by automatic text processing. 
+\begin{itemize}
+\item Little snippets can be included with the \verb+\verb+ command. The first character after \verb+\verb+ is taken as a marker for the beginning of the characters to be reproduced verbatim, the second occurance of this character is taken as the end of the verbatim text. For example \verb^\verb+q1<-1:4+^ will yield \verb+q1<-1:4+.
+\item Bigger sections of code require the use of \verb+\begin{verbatim}+ and \verb+\end{verbatim}+ like this:
+{\small
+\begin{verbatim}
+gam<-function (formula, family = gaussian(), data = list(), 
+     weights = NULL, subset = NULL, na.action, control = 
+     gam.control(), scale = 0, knots = NULL, sp = NULL, 
+     min.sp = NULL, H = NULL, gamma = 1, ...) 
+{
+    gp <- gam.parser(formula)
+    mf <- match.call(expand.dots = FALSE)
+    ff <- paste(gp$v.names[1], gp$pftext)
+    n <- length(gp$v.names)
+    if (n > 1) {
+        ff1 <- paste(gp$v.names[2:n], collapse = "+")
+        ff <- paste(ff, "+", ff1)
+    }
+        .
+        .
+        .
+}        
+
+\end{verbatim}
+}
+\end{itemize}
+
+\section{Bibliography and references}
+
+Quite nice bibliography creating facilities are available using the BibTex program. Basically you create a separate file containing all your references, cite them in the document using standard commands and then place a command at the end of you document to create the reference list --- only references that you actually cited will appear on this list.
+
+Here are some example citations: \cite{Wit01}, \cite{McCullagh00a,McCullagh00b}, \cite{Ward73,McCullagh89}.
+
+\section{Table of contents}
+
+A table of contents can be inserted anywhere with the command \verb+\tableofcontents+
+
+\tableofcontents
+
+
+\bibliographystyle{plain}
+\bibliography{extendibility}
+\end{document}
